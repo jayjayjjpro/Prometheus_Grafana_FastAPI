@@ -22,7 +22,7 @@ from prometheus_fastapi_instrumentator import Instrumentator
 
 
 app = FastAPI()
-# Instrument the app
+# Instrument the app for Prometheus
 Instrumentator().instrument(app).expose(app)
 
 app.add_middleware(
