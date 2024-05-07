@@ -41,17 +41,18 @@ If you are using Windows, you will need to install the Windows Subsystem for Lin
 ```shell
 git clone https://github.com/djchiamHiverlab/API_Prometheus_Grafana_Deployment.git
 ```
-2. Modify the Dockerfile and Dockercompose yml based on your needs. Remember to create a .env file and update the ports for docker-compose.yml.
-3. Modify Prometheus yml based on your needs
-4. Build the Docker Containers
+2. Modify the Dockerfile and Dockercompose yml to use your own Fast API. **Remember to create a .env file and update the ports for docker-compose.yml**
+3. Copy your Fast API code into the repository. **Remember to Instrument the app for Prometheus(Refer to the line of code in fast_app.py)**
+4. Modify Prometheus yml(**Refer to the comments and readme in the Prometheus Folder for more information)**
+5. Build the Docker Containers
 ```shell
 docker-compose up -d
 ```
-5. Access the Grafana dashboard
+6. Access the Grafana dashboard
 ```shell
 <localhost or vm ip address>:3000
 ```
-6. Set up the dashboard according to the documentation
+7. Set up the dashboard according to the documentation
 ## DockerConfiguration
 To customize this Docker Compose file for your specific needs, consider the following modifications:
 
