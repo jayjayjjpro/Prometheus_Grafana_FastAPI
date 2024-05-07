@@ -7,6 +7,7 @@ services:
       - ./:/usr/src/app/                # Mount the current directory to /usr/src/app in the container
     ports:
       - "${WEB_PORT}:8000"              # Map port 8000 of the container to port 8000 on the host
+    restart: always
 
   # Configuration for the Prometheus monitoring service
   prometheus:
@@ -18,6 +19,7 @@ services:
       - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml # Mount the Prometheus config file
     command:
       - '--config.file=/etc/prometheus/prometheus.yml' # Command to specify the config file location
+    restart: always
 
   # Configuration for the Grafana service
   grafana:
@@ -27,6 +29,7 @@ services:
       - "${GRAFANA_PORT}:3000"          # Map port 3000 of the container to port 3000 on the host
     volumes:
       - grafana_data:/var/lib/grafana   # Mount the Grafana data volume for persistence
+    restart: always
 
 # Define the volumes used by Prometheus and Grafana for data persistence
 volumes:
