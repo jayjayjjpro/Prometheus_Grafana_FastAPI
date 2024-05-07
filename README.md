@@ -41,7 +41,7 @@ If you are using Windows, you will need to install the Windows Subsystem for Lin
 ```shell
 git clone https://github.com/djchiamHiverlab/API_Prometheus_Grafana_Deployment.git
 ```
-2. Modify the Dockerfile and Dockercompose yml based on your needs
+2. Modify the Dockerfile and Dockercompose yml based on your needs. Remember to create a .env file and update the ports for docker-compose.yml.
 3. Modify Prometheus yml based on your needs
 4. Build the Docker Containers
 ```shell
