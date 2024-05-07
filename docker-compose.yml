@@ -17,8 +17,10 @@ services:
       - "${PROMETHEUS_PORT}:9090"       # Map port 9090 of the container to port 9090 on the host
     volumes:
       - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml # Mount the Prometheus config file
+      - prometheus_data:/prometheus  
     command:
       - '--config.file=/etc/prometheus/prometheus.yml' # Command to specify the config file location
+      - '--storage.tsdb.path=/prometheus' 
     restart: always
 
   # Configuration for the Grafana service
