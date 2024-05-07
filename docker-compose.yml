@@ -6,14 +6,14 @@ services:
     volumes:                             
       - ./:/usr/src/app/                # Mount the current directory to /usr/src/app in the container
     ports:
-      - "8000:8000"                     # Map port 8000 of the container to port 8000 on the host
+      - "${WEB_PORT}:8000"              # Map port 8000 of the container to port 8000 on the host
 
   # Configuration for the Prometheus monitoring service
   prometheus:
     image: prom/prometheus              # Use the official Prometheus image from Docker Hub
     container_name: prometheus          # Name the container as 'prometheus'
     ports:
-      - 9090:9090                       # Map port 9090 of the container to port 9090 on the host
+      - "${PROMETHEUS_PORT}:9090"       # Map port 9090 of the container to port 9090 on the host
     volumes:
       - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml # Mount the Prometheus config file
     command:
@@ -24,7 +24,7 @@ services:
     image: grafana/grafana              # Use the official Grafana image from Docker Hub
     container_name: grafana             # Name the container as 'grafana'
     ports:
-      - 3000:3000                       # Map port 3000 of the container to port 3000 on the host
+      - "${GRAFANA_PORT}:3000"          # Map port 3000 of the container to port 3000 on the host
     volumes:
       - grafana_data:/var/lib/grafana   # Mount the Grafana data volume for persistence
 
