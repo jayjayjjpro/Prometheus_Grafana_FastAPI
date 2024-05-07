@@ -1,36 +1,36 @@
 # global config
 global:
-  scrape_interval: 15s  # Default frequency for scraping metrics from monitored targets.
-  scrape_timeout: 10s   # Default timeout for a scrape attempt before considering it failed.
+  scrape_interval: 15s # Default frequency for scraping metrics from monitored targets.
+  scrape_timeout: 10s # Default timeout for a scrape attempt before considering it failed.
   evaluation_interval: 15s # How frequently to evaluate alert rules.
 
 # Alerting configuration
 alerting:
   alertmanagers:
-  - follow_redirects: true # If true, Prometheus will follow HTTP redirects for alertmanager.
-    enable_http2: true     # Enable HTTP/2 support in communications with alertmanager.
-    scheme: http           # Protocol scheme used to connect to alertmanager (http or https).
-    timeout: 10s           # Timeout for attempting to send alerts to alertmanager.
-    api_version: v2        # API version to use when communicating with alertmanager.
-    static_configs:
-    - targets: []          # List of alertmanager instances; here it's empty which should be configured.
+    - follow_redirects: true # If true, Prometheus will follow HTTP redirects for alertmanager.
+      enable_http2: true # Enable HTTP/2 support in communications with alertmanager.
+      scheme: http # Protocol scheme used to connect to alertmanager (http or https).
+      timeout: 10s # Timeout for attempting to send alerts to alertmanager.
+      api_version: v2 # API version to use when communicating with alertmanager.
+      static_configs:
+        - targets: [] # List of alertmanager instances; here it's empty which should be configured.
 
 # Scrape configurations define endpoints from which Prometheus collects metrics.
 scrape_configs:
-- job_name: prometheus  # Name of the job, used to label scraped metrics.
-  honor_timestamps: true # Whether Prometheus respects the timestamps provided by targets.
-  scrape_interval: 15s   # Frequency at which this target is scraped.
-  scrape_timeout: 10s    # Timeout for each scrape attempt for this job.
-  metrics_path: /metrics # HTTP path to fetch metrics from.
-  scheme: http           # Protocol scheme to use (http or https).
-  follow_redirects: true # Enable following of HTTP redirects.
-  enable_http2: true     # Enable HTTP/2 support in communications with this target.
-  static_configs:
-  - targets:
-    - localhost:9090     # The target endpoint from which Prometheus collects its own metrics.
+  - job_name: prometheus # Name of the job, used to label scraped metrics.
+    honor_timestamps: true # Whether Prometheus respects the timestamps provided by targets.
+    scrape_interval: 100s # Frequency at which this target is scraped.
+    scrape_timeout: 10s # Timeout for each scrape attempt for this job.
+    metrics_path: /metrics # HTTP path to fetch metrics from.
+    scheme: http # Protocol scheme to use (http or https).
+    follow_redirects: true # Enable following of HTTP redirects.
+    enable_http2: true # Enable HTTP/2 support in communications with this target.
+    static_configs:
+      - targets:
+          - localhost:9090 # The target endpoint from which Prometheus collects its own metrics.
 
-- job_name: 'fastapi'    # Name of the job for scraping metrics from FastAPI application.
-  scrape_interval: 10s   # Frequency at which this target is scraped, differing from global default.
-  metrics_path: /metrics # HTTP path from which to fetch metrics.
-  static_configs:
-    - targets: ['web:8000'] # The endpoint for the FastAPI application, typically a service name in Docker.
+  - job_name: "fastapi" # Name of the job for scraping metrics from FastAPI application.
+    scrape_interval: 100s # Frequency at which this target is scraped, differing from global default.
+    metrics_path: /metrics # HTTP path from which to fetch metrics.
+    static_configs:
+      - targets: ["web:8000"] # The endpoint for the FastAPI application, typically a service name in Docker.
