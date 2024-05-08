@@ -8,7 +8,7 @@ This template provides a ready-to-use setup for deploying a robust application m
 
 ## Features
 
-- **FastAPI**: Pre-configured FastAPI application setup **(The provided API is just an example, do replace it with your own API)**. For a working API, can refer to 3D BluePrint AI repository ( [3D_BluePrint](https://github.com/HiverlabResearchAndDevelopment/3dblueprinting) ).
+- **FastAPI**: Pre-configured FastAPI application setup **(The provided API is just a basic example, do replace it with your own API)**. For a proper working API, can refer to 3D BluePrint AI repository ( [3D_BluePrint](https://github.com/HiverlabResearchAndDevelopment/3dblueprinting) ).
 - **Prometheus**: Configured to collect metrics from FastAPI.
 - **Grafana**: Set up with dashboards for viewing FastAPI metrics.
 - **Docker**: Everything containerized for easy deployment and scalability.
