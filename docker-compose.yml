@@ -6,7 +6,7 @@ services:
     volumes:                             
       - ./:/usr/src/app/                # Mount the current directory to /usr/src/app in the container
     ports:
-      - "${WEB_PORT}:8000"              # Map port 8000 of the container to port 8000 on the host
+      - "${WEB_PORT}:8000"              # Map port 8000 of the container to port 8443 on the host
     restart: always
 
   # Configuration for the Prometheus monitoring service
