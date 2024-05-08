@@ -1,27 +1,20 @@
-# Start from a specific version of the official Python image
+# Use an official Python runtime as a parent image
 FROM python:3.10.4-slim
 
-# Install necessary libraries for OpenCV
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-dev \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy the requirements file and the cython constraint file into the container
-COPY requirements.txt cython_constraint.txt ./
+# Copy the local directory contents into the container at /app
+COPY . /app
 
-# Install any needed packages specified in requirements.txt using the constraint file
-RUN PIP_CONSTRAINT=cython_constraint.txt pip install --no-cache-dir -r requirements.txt
+# Install any needed packages
+RUN pip install --no-cache-dir fastapi uvicorn gunicorn pydantic prometheus_fastapi_instrumentator
 
-# Copy the application code
-COPY . .
-
-# Make port 8000 available to the world outside this container
+# Expose the port the app runs on
 EXPOSE 8000
 
-# Command to run the application using Gunicorn with Uvicorn workers
-CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "wsgi:app", "--bind", "0.0.0.0:8000"]
+# Define environment variable for the module where the FastAPI app is defined
+ENV MODULE_NAME="fast_app"
 
+# Run the application using Gunicorn with Uvicorn workers
+CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "$MODULE_NAME:app", "--bind", "0.0.0.0:8000"]
