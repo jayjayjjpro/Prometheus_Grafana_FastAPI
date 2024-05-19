@@ -5,50 +5,54 @@ services:
     build: .                             # Build the Docker image using the Dockerfile in the current directory
     volumes:                             
       - ./:/usr/src/app/                # Mount the current directory to /usr/src/app in the container
+    env_file:
+      - .env                            # Load environment variables from the .env file
     ports:
-      - "${WEB_PORT}:8000"              # Map port 8000 of the container to port 8443 on the host
-    restart: always
+      - "${WEB_HOST_PORT}:${WEB_CONTAINER_PORT}" # Map port on the host to port in the container
+    environment:
+      - WEB_CONTAINER_PORT=${WEB_CONTAINER_PORT} # Set environment variable for container port
+    restart: always                      # Always restart the container if it stops
 
   # Configuration for the Prometheus monitoring service
   prometheus:
     image: prom/prometheus              # Use the official Prometheus image from Docker Hub
     container_name: prometheus          # Name the container as 'prometheus'
     ports:
-      - "${PROMETHEUS_PORT}:9090"       # Map port 9090 of the container to port 9090 on the host
+      - "${PROMETHEUS_HOST_PORT}:${PROMETHEUS_CONTAINER_PORT}" # Map port on the host to port in the container
     volumes:
       - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml # Mount the Prometheus config file
-      - prometheus_data:/prometheus  
+      - prometheus_data:/prometheus     # Mount the Prometheus data volume for persistence
     command:
       - '--config.file=/etc/prometheus/prometheus.yml' # Command to specify the config file location
-      - '--storage.tsdb.path=/prometheus' 
-    restart: always
+      - '--storage.tsdb.path=/prometheus' # Command to specify the storage path for Prometheus data
+    restart: always                      # Always restart the container if it stops
 
   # Configuration for the Grafana service
   grafana:
     image: grafana/grafana              # Use the official Grafana image from Docker Hub
     container_name: grafana             # Name the container as 'grafana'
     ports:
-      - "${GRAFANA_PORT}:3000"          # Map port 3000 of the container to port 3000 on the host
+      - "${GRAFANA_HOST_PORT}:${GRAFANA_CONTAINER_PORT}" # Map port on the host to port in the container
     volumes:
       - grafana_data:/var/lib/grafana   # Mount the Grafana data volume for persistence
-    restart: always
+    restart: always                      # Always restart the container if it stops
 
 # Define the volumes used by Prometheus and Grafana for data persistence
 volumes:
   prometheus_data:                       # Volume for Prometheus data
-    driver: local
+    driver: local                        # Use the local driver for volume management
     driver_opts:
-      o: bind
-      type: none
+      o: bind                            # Bind mount the volume
+      type: none                         # No specific file type
       device: ./prometheus_data          # Location on the host machine to store Prometheus data
   grafana_data:                          # Volume for Grafana data
-    driver: local
+    driver: local                        # Use the local driver for volume management
     driver_opts:
-      o: bind
-      type: none
+      o: bind                            # Bind mount the volume
+      type: none                         # No specific file type
       device: ./grafana_data             # Location on the host machine to store Grafana data
 
 # Define the default network settings
 networks:
   default: 
-    name: 3DBluePrint_fastapi            # Name the default network used by all services
+    name: fastapi                        # Name the default network used by all services
