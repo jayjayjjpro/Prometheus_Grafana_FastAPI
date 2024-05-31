@@ -8,7 +8,7 @@ This template provides a ready-to-use setup for deploying a robust application m
 
 ## Features
 
-- **FastAPI**: Pre-configured FastAPI application setup **(The provided API is just a basic example, do replace it with your own API)**. For a proper working API, can refer to 3D BluePrint AI repository ( [3D_BluePrint](https://github.com/HiverlabResearchAndDevelopment/3dblueprinting) ).
+- **FastAPI**: Pre-configured FastAPI application setup **(The provided API is just a basic example, do replace it with your own API)**.
 - **Prometheus**: Configured to collect metrics from FastAPI.
 - **Grafana**: Set up with dashboards for viewing FastAPI metrics.
 - **Docker**: Everything containerized for easy deployment and scalability.
@@ -19,7 +19,7 @@ This template provides a ready-to-use setup for deploying a robust application m
 - [Quickstart](#quickstart)
 - [DockerConfiguration](#dockerconfiguration)
 - [Documentation](#documentation)
-- [Authors](#authors)
+- [Reference](#reference)
 
 
 ## Prerequisites
@@ -59,14 +59,14 @@ To customize this Docker Compose file for your specific needs, consider the foll
 - Ports: To change the ports on which services are accessible, modify the numbers in the ports settings for each service. Ensure the first number (host port) is available on your system.
 - Volumes: If you wish to store data in different directories on your host, change the device paths under volumes.
 - Build context and Dockerfile: The build directive in the web service assumes you have a Dockerfile in the current directory. If your Dockerfile is elsewhere, modify the path accordingly.
-- Network names: The default network is named 3DBluePrint_fastapi. You can rename it under networks to better reflect your project or environment.
+- Network names: The default network is named fastapi. You can rename it under networks to better reflect your project or environment.
 
 ## Documentation
 [Documentation(Maintenance and dashboard set up)](https://docs.google.com/document/d/1uBQXvvmeXGqjy7l8ETGz3Nr9CqCfObo7x6c8A5BKqRk/edit#heading=h.hnstmjjlgnbw)
 
-## Authors
+## Reference
 
-* Chiam Da Jie (AI/Backend Engineer Intern)
+[FastAPI-Prometheus-Grafana](https://dev.to/ken_mwaura1/getting-started-monitoring-a-fastapi-app-with-grafana-and-prometheus-a-step-by-step-guide-3fbn)
 
 
 
